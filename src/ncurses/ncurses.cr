@@ -319,4 +319,13 @@ lib LibCurses
   fun redrawwin(win : Window*) : LibC::Int
   fun wredrawln(win : Window*, beg_line : LibC::Int, num_lines : LibC::Int) : LibC::Int
 
+  # Get character functions.
+  # see: http://invisible-island.net/ncurses/man/curs_getch.3x.html
+  fun getch : LibC::Int
+  fun wgetch(win : Window*) : LibC::Int
+  fun mvgetch(y : LibC::Int, x : LibC::Int) : LibC::Int
+  fun mvwgetch(win : Window*, y : LibC::Int, x : LibC::Int) : LibC::Int
+  fun ungetch(ch : LibC::Int) : LibC::Int
+  fun has_key(ch : LibC::Int) : LibC::Int
+
 end
