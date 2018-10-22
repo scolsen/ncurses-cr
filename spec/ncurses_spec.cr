@@ -2,8 +2,9 @@ require "./spec_helper"
 
 describe Ncurses do
   # TODO: Write tests
-
-  it "works" do
-    false.should eq(true)
+  describe "#initscr" do
+    it "Initializes." do
+      LibCurses.initscr
+    end
   end
 end

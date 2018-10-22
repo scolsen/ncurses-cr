@@ -1,30 +1,34 @@
+@[Link("ncurses")]
 lib LibCurses
   type Chtype = Int32
   type Window = Void
-  type Widechar = Nil # TODO: Redefine this appropriately.
-  type WideString = Nil # TODO: Redefine this appropriately. Wrapper for cchar_t, a string of wide characters.
-  
+  type WideChar = LibC::Char # TODO: Redefine this appropriately.
+  type WideString = LibC::Char # TODO: Redefine this appropriately. Wrapper for cchar_t, a string of wide characters.
+  type Attr = LibC::UInt
+  type File = Void
+  type Screen = Void
+
   # Complex character functions.
   # wch is placed in the window at the current position and then advanced.
   # see: http://invisible-island.net/ncurses/man/curs_add_wch.3x.htmlhttp://invisible-island.net/ncurses/man/curs_add_wch.3x.html
-  fun add_wch(wch : Widechar*) : Int32
-  fun wadd_wch(win : Window*, wch : Widechar*) : Int32
-  fun mvadd_wch(y : Int32, x : Int32, wch : Widechar*) : Int32
-  fun mvwadd_wch(win : Window*, y : Int32, x : Int32, wch : Widechar*) : Int32
-  fun echo_wchar (wch : Widechar*) : Int32
-  fun wecho_wchar (win : Window*, wch : Widechar*) : Int32
+  fun add_wch(wch : WideChar*) : Int32
+  fun wadd_wch(win : Window*, wch : WideChar*) : Int32
+  fun mvadd_wch(y : Int32, x : Int32, wch : WideChar*) : Int32
+  fun mvwadd_wch(win : Window*, y : Int32, x : Int32, wch : WideChar*) : Int32
+  fun echo_wchar (wch : WideChar*) : Int32
+  fun wecho_wchar (win : Window*, wch : WideChar*) : Int32
 
   # Complex character string functions.
   # Copy an null-terminated array of complex characters into a window at the current cursor position. Arguments with an n copy at most n elements. 
   # see: http://invisible-island.net/ncurses/man/curs_add_wchstr.3x.html
-  fun add_wchstr(wchstr : Widechar*) : Int32
-  fun add_wchnstr(wchstr : Widechar*, n : Int32) : Int32
-  fun wadd_wchstr(win : Window*, wchstr : Widechar*) : Int32
-  fun wadd_wchnstr(win : Window*, wchstr : Widechar*, n : Int32) : Int32
-  fun mvadd_wchstr(y : Int32, x : Int32, wchstr : Widechar*) : Int32
-  fun mvadd_wchnstr(y : Int32, x : Int32, wchstr : Widechar*, n : Int32) : Int32
-  fun mvwadd_wchstr(win : Window*, y : Int32, x : Int32, wchstr : Widechar*) : Int32
-  fun mvwadd_wchnstr(win : Window*, y : Int32, x : Int32, wchstr : Widechar*, n : Int32) : Int32
+  fun add_wchstr(wchstr : WideChar*) : Int32
+  fun add_wchnstr(wchstr : WideChar*, n : Int32) : Int32
+  fun wadd_wchstr(win : Window*, wchstr : WideChar*) : Int32
+  fun wadd_wchnstr(win : Window*, wchstr : WideChar*, n : Int32) : Int32
+  fun mvadd_wchstr(y : Int32, x : Int32, wchstr : WideChar*) : Int32
+  fun mvadd_wchnstr(y : Int32, x : Int32, wchstr : WideChar*, n : Int32) : Int32
+  fun mvwadd_wchstr(win : Window*, y : Int32, x : Int32, wchstr : WideChar*) : Int32
+  fun mvwadd_wchnstr(win : Window*, y : Int32, x : Int32, wchstr : WideChar*, n : Int32) : Int32
 
   # Character functions.
   # see: http://invisible-island.net/ncurses/man/curs_addch.3x.html
@@ -110,11 +114,11 @@ lib LibCurses
   # see: http://invisible-island.net/ncurses/man/curs_termattrs.3x.html
   fun baudrate : Int32
   fun erasechar : LibC::Char
-  fun erasewchar(ch : Widechar*) : Int32
+  fun erasewchar(ch : WideChar*) : Int32
   fun has_ic : Bool
   fun has_il : Bool
   fun killchar : LibC::Char
-  fun killwchar(ch : Widechar*) : Int32
+  fun killwchar(ch : WideChar*) : Int32
   fun longname : LibC::Char*
   fun term_attrs : Attr
   fun termattrs : Chtype
@@ -160,7 +164,7 @@ lib LibCurses
   # see: http://invisible-island.net/ncurses/man/curs_border_set.3x.html
   fun border_set(ls : WideString*, rs : WideString*, ts : WideString*, bs : WideString*, tl : WideString*, tr : WideString*, bl : WideString*, br : WideString*) : LibC::Int
   fun wborder_set(win : Window*, ls : WideString*, rs : WideString*, ts : WideString*, bs : WideString*, tl : WideString*, tr : WideString*, bl : WideString*, br : WideString*) : LibC::Int
-  fun box_set(win : Window*, verch : WideString*, horch : WiseString*) : LibC::Int
+  fun box_set(win : Window*, verch : WideString*, horch : WideString*) : LibC::Int
   fun hline_set(wch : WideString*, n : LibC::Int) : LibC::Int
   fun whline_set(win : Window*, wch : WideString*, n : LibC::Int) : LibC::Int
   fun mvhline_set(y : LibC::Int, x : LibC::Int, wch : WideString*, n : LibC::Int) : LibC::Int
@@ -255,7 +259,7 @@ lib LibCurses
   # TODO: define File.
   fun unctrl(c : Chtype) : LibC::Char*
   fun wunctrl(c : WideString*): WideChar*
-  fun keyname(c :: LibC::Int) : LibC::Char*
+  fun keyname(c : LibC::Int) : LibC::Char*
   fun key_name(w : WideChar) : LibC::Char*
   fun filter
   fun nofilter
@@ -315,4 +319,4 @@ lib LibCurses
   fun redrawwin(win : Window*) : LibC::Int
   fun wredrawln(win : Window*, beg_line : LibC::Int, num_lines : LibC::Int) : LibC::Int
 
-
+end
