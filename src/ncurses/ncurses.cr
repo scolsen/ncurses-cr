@@ -7,6 +7,7 @@ lib LibCurses
   type Attr = LibC::UInt
   type File = Void
   type Screen = Void
+  type Varglist = Void
 
   # Complex character functions.
   # wch is placed in the window at the current position and then advanced.
@@ -327,5 +328,22 @@ lib LibCurses
   fun mvwgetch(win : Window*, y : LibC::Int, x : LibC::Int) : LibC::Int
   fun ungetch(ch : LibC::Int) : LibC::Int
   fun has_key(ch : LibC::Int) : LibC::Int
+  
+  # Pad functions.
+  # see: https://invisible-island.net/ncurses/man/curs_pad.3x.html
+  fun newpad(nlines : LibC::Int, ncols : LibC::Int) : Window*
+  fun subpad(orig : Window*, nlines : LibC::Int, ncols : LibC::Int, begin_y : LibC::Int, begin_x : LibC::Int) : Window*
+  fun prefresh(pad : Window*, pminrow : LibC::Int, pmincol : LibC::Int, sminrow : LibC::Int, smincol : LibC::Int, smaxrow : LibC::Int, smaxcol : LibC::Int) : LibC::Int
+  fun pnoutrefresh(pad : Window*, pminrow : LibC::Int, pmincol : LibC::Int, sminrow : LibC::Int, smincol : LibC::Int, smaxrow : LibC::Int, smaxcol : LibC::Int) : LibC::Int
+  fun pechochar(pad : Window*, ch : Chtype) : LibC::Int
+  fun pecho_wchar(pad : Window*, wch : WideChar*) : LibC::Int
+  
+  # Print functions.
+  # see: https://invisible-island.net/ncurses/man/curs_printw.3x.html
+  fun printw(fmt : LibC::Char*) : LibC::Int
+  fun wprintw(win : Window*, fmt : LibC::Char*) : LibC::Int
+  fun mvprintw(y : LibC::Int, x : LibC::Int, fmt : LibC::Char*) : LibC::Int
+  fun mvwprintw(win : Window*, y : LibC::Int, x : LibC::Int, fmt : LibC::Char*) : LibC::Int
+  fun vw_printw(win : Window*, fmt : LibC::Char*, va_list : Varglist) : LibC::Int
 
 end
