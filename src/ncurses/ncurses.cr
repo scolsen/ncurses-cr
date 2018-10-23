@@ -1,6 +1,6 @@
 @[Link("ncurses")]
 lib LibCurses
-  type Chtype = LibC::Int
+  alias Chtype = LibC::Char
   type Window = Void
   type WideChar = LibC::Char # TODO: Redefine this appropriately.
   type WideString = LibC::Char # TODO: Redefine this appropriately. Wrapper for cchar_t, a string of wide characters.
@@ -344,6 +344,6 @@ lib LibCurses
   fun wprintw(win : Window*, fmt : LibC::Char*) : LibC::Int
   fun mvprintw(y : LibC::Int, x : LibC::Int, fmt : LibC::Char*) : LibC::Int
   fun mvwprintw(win : Window*, y : LibC::Int, x : LibC::Int, fmt : LibC::Char*) : LibC::Int
-  fun vw_printw(win : Window*, fmt : LibC::Char*, va_list : Varglist) : LibC::Int
+  fun vw_printw(win : Window*, fmt : LibC::Char*, va_list : Varglist*) : LibC::Int
 
 end
