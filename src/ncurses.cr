@@ -3,21 +3,26 @@ require "./ncurses/*"
 # TODO: Write documentation for `Ncurses`
 module Cantrip
   extend self  
-  
+
+  @@main = Window.new(LibCurses.initscr)
+
   # Start cantrip.
   # Wraps `LibCurses.initscr` functions to enter curses mode.
   # Sets a number of module class variables to manage overall state.
   # @@main_window stores the main window reference returned by LibCurses.  
   def start 
     raise "Cantrip is already initalized" if @@started
-    Window.new(LibCurses.initscr)
-    @@started = true 
+    @@started = true
   end
 
   # Stops cantrip.
   # Wrapper around `LibCurses.endwin`.
   def stop
     LibCurses.endwin
+  end
+
+  def main
+    @@main
   end
 
   # Enter character input mode. 
@@ -40,6 +45,14 @@ module Cantrip
 
     def to_unsafe
       @window
+    end
+
+    def addch(character : Int32)
+      LibCurses.waddch(@window, character)
+    end
+
+    def getch
+      LibCurses.wgetch(@window)
     end
   end
 end

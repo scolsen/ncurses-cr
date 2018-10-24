@@ -12,10 +12,9 @@ x = 123
 #LibCurses.endwin
 
 Cantrip.start
-LibCurses.cbreak
-LibCurses.addch x
-y = LibCurses.getch
-while y != 113
-  y = LibCurses.getch  
+Cantrip.character_mode
+Cantrip.main.addch x
+while Cantrip.main.getch != 113
+  next
 end
 Cantrip.stop
