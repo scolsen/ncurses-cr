@@ -54,5 +54,11 @@ module Cantrip
     def getch
       LibCurses.wgetch(@window)
     end
+
+    def save(filename : String)
+      file = LibFile.fopen(filename, "w")
+      LibCurses.putwin(@window, file)
+      LibFile.fclose(file)
+    end
   end
 end

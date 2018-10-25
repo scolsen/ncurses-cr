@@ -1,11 +1,13 @@
+require "./lib_file.cr"
+
 @[Link("ncurses")]
 lib LibCurses
   alias Chtype = LibC::Char
+  alias File = LibFile::File
   type Window = Void
   type WideChar = LibC::Char # TODO: Redefine this appropriately.
   type WideString = LibC::Char # TODO: Redefine this appropriately. Wrapper for cchar_t, a string of wide characters.
   type Attr = LibC::UInt
-  type File = Void
   type Screen = Void
   type Varglist = Void
 

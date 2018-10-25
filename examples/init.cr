@@ -17,4 +17,5 @@ Cantrip.main.addch x
 while Cantrip.main.getch != 113
   next
 end
+Cantrip.main.save "test"
 Cantrip.stop
